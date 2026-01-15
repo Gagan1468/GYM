@@ -3,8 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>SaaS</title>
-
-  <!-- VERY IMPORTANT -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,18 +10,22 @@
   <h1>SaaS</h1>
   <p>Smart AI Athlete System</p>
 
-  <form>
-    <input placeholder="Age">
-    <input placeholder="Weight">
-    <input placeholder="Height">
+  <!-- IMPORTANT: form ID -->
+  <form id="userForm">
+    <input id="age" placeholder="Age" required>
+    <input id="weight" placeholder="Weight" required>
+    <input id="height" placeholder="Height" required>
 
-    <select>
-      <option>Muscle Gain</option>
+    <select id="goal">
+      <option value="bulk">Muscle Gain</option>
+      <option value="cut">Fat Loss</option>
     </select>
 
-    <button>Enter SaaS</button>
+    <!-- IMPORTANT: type submit -->
+    <button type="submit">Enter SaaS</button>
   </form>
 
+  <!-- IMPORTANT: JS FILE -->
+  <script src="main.js"></script>
 </body>
 </html>
-
