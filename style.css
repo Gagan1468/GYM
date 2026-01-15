@@ -1,0 +1,109 @@
+:root {
+  --brand: #ff9800;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Inter, sans-serif;
+}
+
+body {
+  background: #0b0b0f;
+  color: #fff;
+}
+
+/* AUTH */
+.auth-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.auth-left {
+  flex: 1;
+  padding: 80px;
+  background: linear-gradient(135deg, #ff9800, #ff5e00);
+  color: #000;
+}
+
+.auth-left h1 {
+  font-size: 48px;
+}
+
+.auth-right {
+  flex: 1;
+  padding: 80px;
+}
+
+.auth-right h2 {
+  margin-bottom: 20px;
+}
+
+input, select {
+  width: 100%;
+  padding: 14px;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: none;
+  background: #1c1c1c;
+  color: #fff;
+}
+
+/* BUTTON */
+.primary-btn {
+  width: 100%;
+  padding: 14px;
+  margin-top: 15px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ff9800, #ff6a00);
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* DASHBOARD */
+.dashboard {
+  display: flex;
+}
+
+.sidebar {
+  width: 240px;
+  background: #111;
+  padding: 30px;
+}
+
+.sidebar h2 {
+  margin-bottom: 30px;
+}
+
+.sidebar button {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 10px;
+  background: #1c1c1c;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.sidebar button:hover {
+  background: #ff9800;
+  color: #000;
+}
+
+.main {
+  flex: 1;
+  padding: 40px;
+}
+
+.card {
+  background: #1c1c1c;
+  padding: 20px;
+  border-radius: 16px;
+  margin-top: 20px;
+}
+
