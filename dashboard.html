@@ -16,17 +16,22 @@
       font-family: 'Inter', system-ui, sans-serif;
     }
 
+    html {
+      scroll-behavior: smooth; /* Smooth scrolling for the entire page */
+    }
+
     body {
       background: linear-gradient(135deg, #0b0b0f 0%, #1a1a2e 100%);
       color: #ffffff;
       overflow-x: hidden;
+      line-height: 1.6;
     }
 
     /* APP LAYOUT */
     .app {
       display: flex;
       min-height: 100vh;
-      animation: fadeIn 0.8s ease-in-out;
+      animation: fadeIn 1s ease-out;
     }
 
     /* SIDEBAR */
@@ -37,6 +42,7 @@
       box-shadow: 0 0 50px rgba(255, 152, 0, 0.1);
       position: relative;
       overflow: hidden;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .sidebar::before {
@@ -56,6 +62,7 @@
       font-size: 28px;
       margin-bottom: 5px;
       text-shadow: 0 0 20px rgba(255, 152, 0, 0.5);
+      animation: glow 2s ease-in-out infinite alternate;
     }
 
     .logo span {
@@ -77,9 +84,11 @@
       cursor: pointer;
       color: #ccc;
       text-decoration: none;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
       overflow: hidden;
+      animation: fadeInUp 0.8s ease-out forwards;
+      animation-delay: calc(var(--i) * 0.1s);
     }
 
     nav a::before {
@@ -102,7 +111,7 @@
     nav a.active {
       background: linear-gradient(135deg, #ff9800, #ff6a00);
       color: #000;
-      transform: translateX(8px);
+      transform: translateX(8px) scale(1.02);
       box-shadow: 0 8px 25px rgba(255, 152, 0, 0.3);
     }
 
@@ -116,10 +125,12 @@
       flex: 1;
       padding: 50px;
       background: transparent;
+      transition: padding 0.4s ease;
     }
 
     #content {
-      animation: slideIn 0.6s ease-out;
+      animation: slideIn 0.8s ease-out;
+      transform-style: preserve-3d;
     }
 
     /* TEXT */
@@ -131,6 +142,8 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      animation: textGlow 3s ease-in-out infinite alternate;
+      transition: font-size 0.4s ease;
     }
 
     .muted {
@@ -138,6 +151,7 @@
       margin-bottom: 40px;
       font-size: 18px;
       font-weight: 400;
+      transition: opacity 0.4s ease;
     }
 
     /* GRID */
@@ -146,6 +160,7 @@
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 30px;
       margin-top: 40px;
+      transition: gap 0.4s ease;
     }
 
     /* CARD */
@@ -155,9 +170,11 @@
       padding: 30px;
       border-radius: 20px;
       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1);
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
       overflow: hidden;
+      transform: translateZ(0); /* Force hardware acceleration */
+      animation: cardFloat 6s ease-in-out infinite;
     }
 
     .card::before {
@@ -176,7 +193,7 @@
     }
 
     .card:hover {
-      transform: translateY(-8px);
+      transform: translateY(-10px) scale(1.02);
       box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 152, 0, 0.2);
     }
 
@@ -187,6 +204,8 @@
       font-weight: 500;
       text-transform: uppercase;
       letter-spacing: 1px;
+      position: relative;
+      z-index: 1;
     }
 
     .big {
@@ -194,6 +213,9 @@
       font-weight: 700;
       color: #ff9800;
       text-shadow: 0 0 20px rgba(255, 152, 0, 0.5);
+      position: relative;
+      z-index: 1;
+      transition: color 0.4s ease;
     }
 
     /* BUTTON */
@@ -205,10 +227,11 @@
       background: linear-gradient(135deg, #ff9800, #ff6a00);
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
       position: relative;
       overflow: hidden;
+      animation: pulse 2s infinite;
     }
 
     .btn::before {
@@ -227,8 +250,13 @@
     }
 
     .btn:hover {
-      transform: translateY(-2px);
+      transform: translateY(-3px) scale(1.05);
       box-shadow: 0 8px 25px rgba(255, 152, 0, 0.4);
+    }
+
+    .btn:focus {
+      outline: 2px solid #ff9800;
+      outline-offset: 2px;
     }
 
     /* INPUT */
@@ -260,10 +288,46 @@
       to { transform: translateY(0); opacity: 1; }
     }
 
+    @keyframes fadeInUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
     @keyframes shimmer {
       0% { transform: translateX(-100%); }
       100% { transform: translateX(100%); }
     }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 20px rgba(255, 152, 0, 0.5); }
+      to { text-shadow: 0 0 30px rgba(255, 152, 0, 1); }
+    }
+
+    @keyframes textGlow {
+      from { filter: brightness(1); }
+      to { filter: brightness(1.2); }
+    }
+
+    @keyframes cardFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3); }
+      50% { box-shadow: 0 4px 20px rgba(255, 152, 0, 0.5); }
+      100% { box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3); }
+    }
+
+    /* Parallax Effect on Scroll */
+    .card {
+      will-change: transform;
+    }
+
+    /* Staggered Animation for Grid Items */
+    .grid > .card:nth-child(1) { animation-delay: 0.1s; }
+    .grid > .card:nth-child(2) { animation-delay: 0.2s; }
+    .grid > .card:nth-child(3) { animation-delay: 0.3s; }
 
     /* RESPONSIVE */
     @media (max-width: 768px) {
@@ -274,7 +338,7 @@
         left: -100%;
         height: 100vh;
         z-index: 1000;
-        transition: left 0.3s ease;
+        transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       }
 
       .sidebar.open {
@@ -304,12 +368,12 @@
     </div>
 
     <nav>
-      <a class="active" onclick="loadPage('overview')"><i class="fas fa-home"></i> Overview</a>
-      <a onclick="loadPage('food')"><i class="fas fa-utensils"></i> Food</a>
-      <a onclick="loadPage('exercise')"><i class="fas fa-dumbbell"></i> Exercises</a>
-      <a onclick="loadPage('plans')"><i class="fas fa-chart-line"></i> Plans</a>
-      <a onclick="loadPage('todo')"><i class="fas fa-tasks"></i> To-Do</a>
-      <a onclick="loadPage('news')"><i class="fas fa-newspaper"></i> News</a>
+      <a class="active" onclick="loadPage('overview')" style="--i: 1;"><i class="fas fa-home"></i> Overview</a>
+      <a onclick="loadPage('food')" style="--i: 2;"><i class="fas fa-utensils"></i> Food</a>
+      <a onclick="loadPage('exercise')" style="--i: 3;"><i class="fas fa-dumbbell"></i> Exercises</a>
+      <a onclick="loadPage('plans')" style="--i: 4;"><i class="fas fa-chart-line"></i> Plans</a>
+      <a onclick="loadPage('todo')" style="--i: 5;"><i class="fas fa-tasks"></i> To-Do</a>
+      <a onclick="loadPage('news')" style="--i: 6;"><i class="fas fa-newspaper"></i> News</a>
     </nav>
   </aside>
 
@@ -339,158 +403,66 @@
   </main>
 
   <script>
-function loadPage(page) {
-  const content = document.getElementById("content");
-  const navLinks = document.querySelectorAll('nav a');
-  
-  // Update active nav link
-  navLinks.forEach(link => link.classList.remove('active'));
-  event.target.classList.add('active');
+    function loadPage(page) {
+      const content = document.getElementById("content");
+      const navLinks = document.querySelectorAll('nav a');
+      
+      // Update active nav link with smooth transition
+      navLinks.forEach(link => link.classList.remove('active'));
+      event.target.classList.add('active');
 
-  // Fade out current content
-  content.style.opacity = '0';
-  content.style.transform = 'translateY(20px)';
-  
-  setTimeout(() => {
-    if (page === "overview") {
-      content.innerHTML = `
-        <h1>Overview <i class="fas fa-eye"></i></h1>
-        <p class="muted">Today at a glance</p>
-
-        <div class="grid">
-          <div class="card">
-            <h3><i class="fas fa-fire"></i> Calories</h3>
-            <p class="big">${localStorage.getItem("calories") || "--"} kcal</p>
-          </div>
-          <div class="card">
-            <h3><i class="fas fa-drumstick-bite"></i> Protein</h3>
-            <p class="big">${(localStorage.getItem("weight") * 2) || "--"} g</p>
-          </div>
-          <div class="card">
-            <h3><i class="fas fa-check-circle"></i> Status</h3>
-            <p class="big">On Track</p>
-          </div>
-        </div>
-      `;
-    }
-
-    if (page === "food") {
-      content.innerHTML = `
-        <h1>Food <i class="fas fa-utensils"></i></h1>
-        <div class="card">
-          <p>Track your meals and macros with AI-powered analysis.</p>
-          <button class="btn" id="scanFoodBtn"><i class="fas fa-camera"></i> Scan Food</button>
-        </div>
-      `;
-      // Add event listener for Scan Food
-      document.getElementById('scanFoodBtn').addEventListener('click', () => {
-        // Simulate scanning: open file input or alert
-        const input = document.createElement('input');
-        input.type = 'file';
-        input.accept = 'image/*';
-        input.onchange = (e) => {
-          const file = e.target.files[0];
-          if (file) {
-            alert(`Food scanned: ${file.name}. AI analysis in progress...`);
-            // Here you could send to an API for analysis
-          }
-        };
-        input.click();
-      });
-    }
-
-    if (page === "exercise") {
-      content.innerHTML = `
-        <h1>Exercises <i class="fas fa-dumbbell"></i></h1>
-        <div class="card">
-          <h3>Today's Split</h3>
-          <p>Push • Pull • Legs</p>
-          <button class="btn" id="startWorkoutBtn"><i class="fas fa-play"></i> Start Workout</button>
-        </div>
-      `;
-      // Add event listener for Start Workout
-      document.getElementById('startWorkoutBtn').addEventListener('click', () => {
-        alert('Starting your Push Day workout! Get ready to crush it.');
-        // Could load a workout interface or timer
-      });
-    }
-
-    if (page === "plans") {
-      content.innerHTML = `
-        <h1>Plans <i class="fas fa-chart-line"></i></h1>
-        <div class="card">
-          <p>AI-generated training & nutrition plan tailored to your goals.</p>
-          <button class="btn" id="customizePlanBtn"><i class="fas fa-cog"></i> Customize Plan</button>
-        </div>
-      `;
-      // Add event listener for Customize Plan
-      document.getElementById('customizePlanBtn').addEventListener('click', () => {
-        const goals = prompt('Enter your goals (e.g., weight loss, muscle gain):');
-        if (goals) {
-          alert(`Customizing plan for: ${goals}. AI is generating your personalized plan...`);
-          // Could open a modal with form fields
+      // Fade out current content smoothly
+      content.style.opacity = '0';
+      content.style.transform = 'translateY(20px)';
+      
+      setTimeout(() => {
+        if (page === "overview") {
+          content.innerHTML = `
+            <h1>Overview <i class="fas fa-eye"></i></h1>
+            <p class="muted">Today at a glance</p>
+            <div class="grid">
+              <div class="card">
+                <h3><i class="fas fa-fire"></i> Calories</h3>
+                <p class="big">${localStorage.getItem("calories") || "--"} kcal</p>
+              </div>
+              <div class="card">
+                <h3><i class="fas fa-drumstick-bite"></i> Protein</h3>
+                <p class="big">${(localStorage.getItem("weight") * 2) || "--"} g</p>
+              </div>
+              <div class="card">
+                <h3><i class="fas fa-check-circle"></i> Status</h3>
+                <p class="big">On Track</p>
+              </div>
+            </div>
+          `;
         }
-      });
-    }
 
-    if (page === "todo") {
-      content.innerHTML = `
-        <h1>To-Do <i class="fas fa-tasks"></i></h1>
-        <div class="card">
-          <input id="taskInput" placeholder="Add a new task..." />
-          <button class="btn" id="addTaskBtn" style="margin-top: 15px;"><i class="fas fa-plus"></i> Add Task</button>
-          <ul id="taskList" style="margin-top: 20px; list-style: none; padding: 0;"></ul>
-        </div>
-      `;
-      // Add event listener for Add Task
-      document.getElementById('addTaskBtn').addEventListener('click', () => {
-        const taskInput = document.getElementById('taskInput');
-        const taskText = taskInput.value.trim();
-        if (taskText) {
-          const taskList = document.getElementById('taskList');
-          const li = document.createElement('li');
-          li.innerHTML = `<i class="fas fa-check-circle" style="color: #ff9800; margin-right: 10px;"></i>${taskText}`;
-          taskList.appendChild(li);
-          taskInput.value = '';
-        } else {
-          alert('Please enter a task.');
+        if (page === "food") {
+          content.innerHTML = `
+            <h1>Food <i class="fas fa-utensils"></i></h1>
+            <div class="card">
+              <p>Track your meals and macros with AI-powered analysis.</p>
+              <button class="btn" id="scanFoodBtn"><i class="fas fa-camera"></i> Scan Food</button>
+            </div>
+          `;
+          document.getElementById('scanFoodBtn').addEventListener('click', () => {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.onchange = (e) => {
+              const file = e.target.files[0];
+              if (file) {
+                alert(`Food scanned: ${file.name}. AI analysis in progress...`);
+              }
+            };
+            input.click();
+          });
         }
-      });
-    }
 
-    if (page === "news") {
-      content.innerHTML = `
-        <h1>News <i class="fas fa-newspaper"></i></h1>
-        <div class="card">
-          <p>Latest fitness updates and AI insights coming soon.</p>
-          <button class="btn" id="subscribeBtn"><i class="fas fa-bell"></i> Subscribe</button>
-        </div>
-      `;
-      // Add event listener for Subscribe
-      document.getElementById('subscribeBtn').addEventListener('click', () => {
-        const email = prompt('Enter your email to subscribe:');
-        if (email) {
-          alert(`Subscribed with ${email}. You'll receive the latest updates!`);
-          // Could send to a backend
-        }
-      });
-    }
-
-    // Fade in new content
-    content.style.opacity = '1';
-    content.style.transform = 'translateY(0)';
-  }, 300);
-}
-
-// Initialize with fade-in
-document.addEventListener('DOMContentLoaded', () => {
-  const content = document.getElementById('content');
-  content.style.opacity = '1';
-  content.style.transform = 'translateY(0)';
-});
-  </script>]
-  <script src='https://www.noupe.com/embed/01983a7c61f7796895c23c4d4f7d4a145a00.js'></script>
-</body>
-</html>
-
-
+        if (page === "exercise") {
+          content.innerHTML = `
+            <h1>Exercises <i class="fas fa-dumbbell"></i></h1>
+            <div class="card">
+              <h3>Today's Split</h3>
+              <p>Push • Pull • Legs</p>
+              <button class="btn" id="startWorkoutBtn"><i class="fas fa-play"></i> Start Workout</button
