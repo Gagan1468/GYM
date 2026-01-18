@@ -1,34 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
- <title>Dashboard | SaaS</title>
-
+  <meta charset="UTF-8">
+  <title>Dashboard | SaaS</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="dashboard">
+<body class="app">
 
+  <!-- SIDEBAR -->
   <aside class="sidebar">
-    <h2>SaaS</h2>
-<p style="font-size:12px;opacity:0.6;">Smart AI Athlete System</p>
+    <div class="logo">
+      <h2>SaaS</h2>
+      <span>Smart AI Athlete</span>
+    </div>
 
     <nav>
-      <button onclick="load('overview')">Overview</button>
-      <button onclick="load('food')">Food</button>
-      <button onclick="load('exercise')">Exercises</button>
-      <button onclick="load('plans')">Plans</button>
-      <button onclick="load('todo')">To-Do</button>
-      <button onclick="load('news')">News</button>
+      <a class="active" onclick="loadPage('overview')">🏠 Overview</a>
+      <a onclick="loadPage('food')">🥗 Food</a>
+      <a onclick="loadPage('exercise')">🏋️ Exercises</a>
+      <a onclick="loadPage('plans')">📊 Plans</a>
+      <a onclick="loadPage('todo')">📝 To-Do</a>
+      <a onclick="loadPage('news')">📰 News</a>
     </nav>
   </aside>
 
-  <main class="main" id="main">
-    <h1>Welcome Back 💪</h1>
-    <p>Your fitness journey, powered by AI.</p>
+  <!-- MAIN -->
+  <main class="main">
+    <div id="content">
+      <h1>Welcome Back 💪</h1>
+      <p class="muted">Your fitness journey, powered by AI.</p>
+
+      <div class="grid">
+        <div class="card">
+          <h3>Calories</h3>
+          <p class="big">-- kcal</p>
+        </div>
+
+        <div class="card">
+          <h3>Protein</h3>
+          <p class="big">-- g</p>
+        </div>
+
+        <div class="card">
+          <h3>Workout</h3>
+          <p class="big">Push Day</p>
+        </div>
+      </div>
+    </div>
   </main>
 
-  <script src="js/dashboard.js"></script>
+  <script src="dashboard.js"></script>
 </body>
 </html>
-
-
-
