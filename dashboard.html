@@ -2,53 +2,441 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Dashboard | SaaS</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | Smart AI Athlete</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0b0b0f 0%, #1a1a2e 100%);
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    /* APP LAYOUT */
+    .app {
+      display: flex;
+      min-height: 100vh;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 280px;
+      background: linear-gradient(180deg, #0f0f14 0%, #1a1a2e 100%);
+      padding: 40px 30px;
+      box-shadow: 0 0 50px rgba(255, 152, 0, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sidebar::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #ff9800, #ff6a00, #ff9800);
+      animation: shimmer 3s infinite;
+    }
+
+    .logo h2 {
+      color: #ff9800;
+      font-weight: 700;
+      font-size: 28px;
+      margin-bottom: 5px;
+      text-shadow: 0 0 20px rgba(255, 152, 0, 0.5);
+    }
+
+    .logo span {
+      font-size: 14px;
+      opacity: 0.7;
+      font-weight: 400;
+    }
+
+    nav {
+      margin-top: 50px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    nav a {
+      padding: 16px 20px;
+      margin-bottom: 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      color: #ccc;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    nav a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 152, 0, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    nav a:hover::before,
+    nav a.active::before {
+      left: 100%;
+    }
+
+    nav a:hover,
+    nav a.active {
+      background: linear-gradient(135deg, #ff9800, #ff6a00);
+      color: #000;
+      transform: translateX(8px);
+      box-shadow: 0 8px 25px rgba(255, 152, 0, 0.3);
+    }
+
+    nav a i {
+      margin-right: 12px;
+      width: 20px;
+    }
+
+    /* MAIN */
+    .main {
+      flex: 1;
+      padding: 50px;
+      background: transparent;
+    }
+
+    #content {
+      animation: slideIn 0.6s ease-out;
+    }
+
+    /* TEXT */
+    h1 {
+      font-size: 42px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, #ff9800, #ffffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .muted {
+      opacity: 0.7;
+      margin-bottom: 40px;
+      font-size: 18px;
+      font-weight: 400;
+    }
+
+    /* GRID */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    /* CARD */
+    .card {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 152, 0, 0.1), transparent);
+      transition: left 0.6s;
+    }
+
+    .card:hover::before {
+      left: 100%;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 152, 0, 0.2);
+    }
+
+    .card h3 {
+      opacity: 0.8;
+      margin-bottom: 15px;
+      font-size: 16px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .big {
+      font-size: 36px;
+      font-weight: 700;
+      color: #ff9800;
+      text-shadow: 0 0 20px rgba(255, 152, 0, 0.5);
+    }
+
+    /* BUTTON */
+    .btn {
+      margin-top: 20px;
+      padding: 14px 24px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #ff9800, #ff6a00);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(255, 152, 0, 0.4);
+    }
+
+    /* INPUT */
+    input {
+      width: 100%;
+      padding: 14px 20px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #ff9800;
+      box-shadow: 0 0 20px rgba(255, 152, 0, 0.3);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: -100%;
+        height: 100vh;
+        z-index: 1000;
+        transition: left 0.3s ease;
+      }
+
+      .sidebar.open {
+        left: 0;
+      }
+
+      .main {
+        padding: 20px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 32px;
+      }
+    }
+  </style>
 </head>
 <body class="app">
-
   <!-- SIDEBAR -->
   <aside class="sidebar">
     <div class="logo">
-      <h2>SaaS</h2>
+      <h2><i class="fas fa-brain"></i> SaaS</h2>
       <span>Smart AI Athlete</span>
     </div>
 
     <nav>
-      <a class="active" onclick="loadPage('overview')">🏠 Overview</a>
-      <a onclick="loadPage('food')">🥗 Food</a>
-      <a onclick="loadPage('exercise')">🏋️ Exercises</a>
-      <a onclick="loadPage('plans')">📊 Plans</a>
-      <a onclick="loadPage('todo')">📝 To-Do</a>
-      <a onclick="loadPage('news')">📰 News</a>
+      <a class="active" onclick="loadPage('overview')"><i class="fas fa-home"></i> Overview</a>
+      <a onclick="loadPage('food')"><i class="fas fa-utensils"></i> Food</a>
+      <a onclick="loadPage('exercise')"><i class="fas fa-dumbbell"></i> Exercises</a>
+      <a onclick="loadPage('plans')"><i class="fas fa-chart-line"></i> Plans</a>
+      <a onclick="loadPage('todo')"><i class="fas fa-tasks"></i> To-Do</a>
+      <a onclick="loadPage('news')"><i class="fas fa-newspaper"></i> News</a>
     </nav>
   </aside>
 
   <!-- MAIN -->
   <main class="main">
     <div id="content">
-      <h1>Welcome Back 💪</h1>
+      <h1>Welcome Back <i class="fas fa-fire"></i></h1>
       <p class="muted">Your fitness journey, powered by AI.</p>
 
       <div class="grid">
         <div class="card">
-          <h3>Calories</h3>
+          <h3><i class="fas fa-fire"></i> Calories</h3>
           <p class="big">-- kcal</p>
         </div>
 
         <div class="card">
-          <h3>Protein</h3>
+          <h3><i class="fas fa-drumstick-bite"></i> Protein</h3>
           <p class="big">-- g</p>
         </div>
 
         <div class="card">
-          <h3>Workout</h3>
+          <h3><i class="fas fa-calendar-day"></i> Workout</h3>
           <p class="big">Push Day</p>
         </div>
       </div>
     </div>
   </main>
 
-  <script src="dashboard.js"></script>
+  <script>
+    function loadPage(page) {
+      const content = document.getElementById("content");
+      const navLinks = document.querySelectorAll('nav a');
+      
+      // Update active nav link
+      navLinks.forEach(link => link.classList.remove('active'));
+      event.target.classList.add('active');
+
+      // Fade out current content
+      content.style.opacity = '0';
+      content.style.transform = 'translateY(20px)';
+      
+      setTimeout(() => {
+        if (page === "overview") {
+          content.innerHTML = `
+            <h1>Overview <i class="fas fa-eye"></i></h1>
+            <p class="muted">Today at a glance</p>
+
+            <div class="grid">
+              <div class="card">
+                <h3><i class="fas fa-fire"></i> Calories</h3>
+                <p class="big">${localStorage.getItem("calories") || "--"} kcal</p>
+              </div>
+              <div class="card">
+                <h3><i class="fas fa-drumstick-bite"></i> Protein</h3>
+                <p class="big">${(localStorage.getItem("weight") * 2) || "--"} g</p>
+              </div>
+              <div class="card">
+                <h3><i class="fas fa-check-circle"></i> Status</h3>
+                <p class="big">On Track</p>
+              </div>
+            </div>
+          `;
+        }
+
+        if (page === "food") {
+          content.innerHTML = `
+            <h1>Food <i class="fas fa-utensils"></i></h1>
+            <div class="card">
+              <p>Track your meals and macros with AI-powered analysis.</p>
+              <button class="btn"><i class="fas fa-camera"></i> Scan Food</button>
+            </div>
+          `;
+        }
+
+        if (page === "exercise") {
+          content.innerHTML = `
+            <h1>Exercises <i class="fas fa-dumbbell"></i></h1>
+            <div class="card">
+              <h3>Today's Split</h3>
+              <p>Push • Pull • Legs</p>
+              <button class="btn"><i class="fas fa-play"></i> Start Workout</button>
+            </div>
+          `;
+        }
+
+        if (page === "plans") {
+          content.innerHTML = `
+            <h1>Plans <i class="fas fa-chart-line"></i></h1>
+            <div class="card">
+              <p>AI-generated training & nutrition plan tailored to your goals.</p>
+              <button class="btn"><i class="fas fa-cog"></i> Customize Plan</button>
+            </div>
+          `;
+        }
+
+        if (page === "todo") {
+          content.innerHTML = `
+            <h1>To-Do <i class="fas fa-tasks"></i></h1>
+            <div class="card">
+              <input placeholder="Add a new task..." />
+              <button class="btn" style="margin-top: 15px;"><i class="fas fa-plus"></i> Add Task</button>
+            </div>
+          `;
+        }
+
+        if (page === "news") {
+          content.innerHTML = `
+            <h1>News <i class="fas fa-newspaper"></i></h1>
+            <div class="card">
+              <p>Latest fitness updates and AI insights coming soon.</p>
+              <button class="btn"><i class="fas fa-bell"></i> Subscribe</button>
+            </div>
+          `;
+        }
+
+        // Fade in new content
+        content.style.opacity = '1';
+        content.style.transform = 'translateY(0)';
+      }, 300);
+    }
+
+    // Initialize with fade-in
+    document.addEventListener('DOMContentLoaded', () => {
+      const content = document.getElementById('content');
+      content.style.opacity = '1';
+      content.style.transform = 'translateY(0)';
+    });
+  </script>
 </body>
 </html>
