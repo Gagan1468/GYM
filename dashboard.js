@@ -1,57 +1,65 @@
-<h1>Welcome to SaaS 💪</h1>
-<p>Your Smart AI Athlete System dashboard.</p>
-
-function load(page) {
-  const main = document.getElementById("main");
-  const calories = localStorage.getItem("calories");
-  const protein = localStorage.getItem("weight") * 2;
+function loadPage(page) {
+  const content = document.getElementById("content");
 
   if (page === "overview") {
-    main.innerHTML = `
+    content.innerHTML = `
       <h1>Overview</h1>
-      <div class="card">
-        <p><b>Calories:</b> ${calories} kcal</p>
-        <p><b>Protein Target:</b> ${protein} g</p>
+      <p class="muted">Today at a glance</p>
+
+      <div class="grid">
+        <div class="card">
+          <h3>Calories</h3>
+          <p class="big">${localStorage.getItem("calories") || "--"} kcal</p>
+        </div>
+        <div class="card">
+          <h3>Protein</h3>
+          <p class="big">${(localStorage.getItem("weight") * 2) || "--"} g</p>
+        </div>
+        <div class="card">
+          <h3>Status</h3>
+          <p class="big">On Track</p>
+        </div>
       </div>
     `;
   }
 
   if (page === "food") {
-    main.innerHTML = `
-      <h1>Food Tracking</h1>
+    content.innerHTML = `
+      <h1>Food</h1>
       <div class="card">
-        <p>Scan food or log manually</p>
-        <button class="primary-btn">Scan Food 📸</button>
+        <p>Track your meals and macros.</p>
+        <button class="btn">Scan Food 📸</button>
       </div>
     `;
   }
 
   if (page === "exercise") {
-    main.innerHTML = `
+    content.innerHTML = `
       <h1>Exercises</h1>
       <div class="card">Push • Pull • Legs</div>
     `;
   }
 
   if (page === "plans") {
-    main.innerHTML = `
-      <h1>Your Plan</h1>
-      <div class="card">AI generated nutrition & workout plan</div>
+    content.innerHTML = `
+      <h1>Plans</h1>
+      <div class="card">AI-generated training & nutrition plan</div>
     `;
   }
 
   if (page === "todo") {
-    main.innerHTML = `
+    content.innerHTML = `
       <h1>To-Do</h1>
-      <input placeholder="Add task">
+      <div class="card">
+        <input placeholder="Add task" />
+      </div>
     `;
   }
 
   if (page === "news") {
-    main.innerHTML = `
-      <h1>Fitness News</h1>
-      <div class="card">Coming soon…</div>
+    content.innerHTML = `
+      <h1>News</h1>
+      <div class="card">Latest fitness updates coming soon</div>
     `;
   }
 }
-
