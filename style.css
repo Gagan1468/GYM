@@ -1,29 +1,104 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Inter, system-ui, sans-serif;
+}
+
 body {
-  background: black;
-  color: white;
-  font-family: Arial, sans-serif;
+  background: #0b0b0f;
+  color: #fff;
 }
 
-h1 {
-  color: orange;
+/* APP LAYOUT */
+.app {
+  display: flex;
+  min-height: 100vh;
 }
 
-form {
-  background: #111;
-  padding: 20px;
-  width: 400px;
-  margin: 40px auto;
+/* SIDEBAR */
+.sidebar {
+  width: 240px;
+  background: #0f0f14;
+  padding: 30px 20px;
+}
+
+.logo h2 {
+  color: #ff9800;
+}
+
+.logo span {
+  font-size: 12px;
+  opacity: 0.6;
+}
+
+nav {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+nav a {
+  padding: 12px 14px;
+  margin-bottom: 10px;
   border-radius: 10px;
+  cursor: pointer;
+  color: #ccc;
+  text-decoration: none;
 }
 
-input, select, button {
-  width: 100%;
-  padding: 12px;
-  margin: 10px 0;
+nav a:hover,
+nav a.active {
+  background: #ff9800;
+  color: #000;
 }
 
-button {
-  background: orange;
-  border: none;
+/* MAIN */
+.main {
+  flex: 1;
+  padding: 40px;
+}
+
+/* TEXT */
+.muted {
+  opacity: 0.6;
+  margin-bottom: 30px;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+/* CARD */
+.card {
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+.card h3 {
+  opacity: 0.7;
+  margin-bottom: 10px;
+}
+
+.big {
+  font-size: 28px;
   font-weight: bold;
+  color: #ff9800;
+}
+
+/* BUTTON */
+.btn {
+  margin-top: 15px;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #ff9800, #ff6a00);
+  font-weight: bold;
+  cursor: pointer;
 }
